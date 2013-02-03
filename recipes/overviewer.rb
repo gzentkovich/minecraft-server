@@ -55,7 +55,15 @@ directory "#{node[:minecraft][:overviewer][:output_dir]}" do
 end
 
 # Copy overviewer config
+render_list = Array.new
+overviewer = data_bag("overviewer")
+overviewer.each do |worlds|
+  world = data_bag_item("overviewer", worlds)
+  render_list << world
+end
+
 template "#{node[:minecraft][:server_dir]}/overviewer.cfg" do
   source "overviewer.erb"
   mode 0755
+  variables(:worlds => render_list)
 end
