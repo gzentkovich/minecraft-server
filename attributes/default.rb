@@ -50,6 +50,18 @@ default['minecraft']['generate_structures'] = true
 
 # Bukkit
 default['minecraft']['bukkit']['use_bukkit'] = true
+default['minecraft']['bukkit']['bukkit_url'] = "http://dl.bukkit.org/latest-rb/craftbukkit.jar"
 default['minecraft']['bukkit']['default_plugins'] = %w{
   jsonapi
 }
+
+# minecraft-overviewer
+default['minecraft']['overviewer']['config_path'] = "/home/minecraft/server/"
+default['minecraft']['overviewer']['terrain_path'] = "/home/minecraft/server/"
+default['minecraft']['overviewer']['world_dir'] = "/home/minecraft/server/"
+default['minecraft']['overviewer']['output_dir'] = "/home/minecraft/map/"
+
+# minecraft-overviewer nginx
+default['minecraft']['overviewer']['server_name'] = "minecraft"
+default['minecraft']['overviewer']['port'] = "80"
+default['minecraft']['overviewer']['public_dir'] = "/srv/www/public/map/"

@@ -64,14 +64,14 @@ remote_file "#{node[:minecraft][:server_dir]}/craftbukkit.jar" do
   owner node[:minecraft][:user]
   group node[:minecraft][:user]
   mode 0644
-  source "http://dl.bukkit.org/latest-rb/craftbukkit.jar"
+  source "#{node[:minecraft][:bukkit][:bukkit_url]}"
   action :nothing
   notifies :restart, resources(:service => "minecraft")
 end
 
-http_request "HEAD #{'http://cbukk.it/craftbukkit-beta.jar'}" do
+http_request "HEAD #{node[:minecraft][:bukkit][:bukkit_url]}" do
   message ""
-  url "http://dl.bukkit.org/latest-rb/craftbukkit.jar"
+  url "#{node[:minecraft][:bukkit][:bukkit_url]}"
   action :head
   if File.exists?("#{node[:minecraft][:server_dir]}/craftbukkit.jar")
     headers "If-Modified-Since" => File.mtime("#{node[:minecraft][:server_dir]}/craftbukkit.jar").httpdate
@@ -88,11 +88,16 @@ template "#{node[:minecraft][:server_dir]}/server.properties" do
 end
 
 # Server ops
+ops_databag = data_bag_item("minecraft", "ops")
+ops_user_list = Array.new
+ops_user_list << ops_databag['users']['name']
+
 template "#{node[:minecraft][:server_dir]}/ops.txt" do
   source "ops.erb"
   owner node[:minecraft][:user]
   group node[:minecraft][:user]
   mode 0755
+  variables(:ops => ops_user_list)
 end
 
 # Bukkit settings
