@@ -30,10 +30,7 @@ default['minecraft']['rcon'] = false
 default['minecraft']['snooper'] = false
 default['minecraft']['online_mode'] = true
 default['minecraft']['white_list'] = false
-default['minecraft']['motd'] = "Brohan.net"
-default['minecraft']['ops'] = %w{
-  notch
-}
+default['minecraft']['motd'] = "A minecraft server"
 
 # Game options
 default['minecraft']['main_world'] = "spawn"
