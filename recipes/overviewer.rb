@@ -27,7 +27,10 @@ apt_repository "minecraft-overviewer" do
 end
 
 # Install package
-package "minecraft-overviewer"
+package "minecraft-overviewer" do
+  options "--force-yes"
+  action :install
+end
 
 # Create minecraft server user
 user "minecraft" do
